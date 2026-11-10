@@ -765,17 +765,9 @@ function cashLoomBasePath(){
  const slash=path.lastIndexOf('/');return slash>=0?path.slice(0,slash+1):'/';
 }
 function cashLoomLoginPath(){return cashLoomBasePath()+'login/';}
+
 function cashLoomRedirectToLogin(){
- if(location.protocol==='file:'){cashLoomShowAuthGate();return;}
- const loginPath=cashLoomLoginPath();
- const currentPath=(location.pathname||'/').replace(/\/+$/,'')||'/';
- const targetPath=loginPath.replace(/\/+$/,'')||'/';
- if(currentPath!==targetPath&&!cashLoomAuthRedirecting){
-  cashLoomAuthRedirecting=true;
-  location.replace(loginPath+'?next='+encodeURIComponent(location.pathname+location.search+location.hash));
- }else{
   cashLoomShowAuthGate();
- }
 }
 async function cashLoomRequireSession(){
  if(!sbClient)makeSupabaseClient(cloudConfig);
